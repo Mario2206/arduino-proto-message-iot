@@ -45,7 +45,45 @@ String getTextMessage(char inputKey) {
   switch (inputKey) {
     case '1':
       return "I love you";
+    
+    case '2':
+      return "You are the most beautiful woman!";
+    
+    case '3':
+      return "You are the most handsome man!";
+    
+    case '4':
+      return "I don't have any idea...";
 
+    case '5':
+      return "...";
+
+    case '6':
+      return "... ... ...";
+    
+    case '7':
+      return "1234567";
+
+    case '8': 
+      return "I can't live without you!";
+    
+    case '9':
+      return "I don't want to breath without you...";
+
+    case 'A':
+      return "I'm your father";
+    
+    case 'B':
+      return "I'm Terminator";
+    
+    case 'C':
+      return "... ... ... ...";
+    
+    case 'D': 
+      return "Tralala";
+    
+    case '*':
+      return "You're my star";
     default:
       return "Unknown message";
   }
@@ -76,7 +114,7 @@ void messageHandler(uint8_t* payload) {
   }
 
   String messageKey = doc[0];
-  bool value = doc[1];
+  String value = doc[1];
 
   if (messageKey == "lastMessage") {
     Serial.println(messageKey);
