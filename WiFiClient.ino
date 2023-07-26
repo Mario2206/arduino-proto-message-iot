@@ -53,39 +53,39 @@ std::array<String, 2> getTextMessage(char inputKey) {
       return { "You are the most", "handsome man!" };
 
     case '4':
-      return { "I don't have any", "idea..." };
+      return { "Your are so", "cute..." };
 
     case '5':
-      return { "..." };
+      return { "I'm your pulse", "beating for you" };
 
     case '6':
-      return { "... ... ..." };
+      return { "You are my", "everything!" };
 
     case '7':
-      return { "1234567" };
+      return { "I can't live", "without you!" };
 
     case '8':
-      return { "I can't live", "without you!" };
+      return { "I want to spend", "my life with you" };
 
     case '9':
       return { "I want to breath", "with you..." };
 
     case 'A':
-      return { "I'm your father" };
+      return { "All I need is", "you" };
 
     case 'B':
-      return { "I'm Terminator" };
+      return { "I want to dive", "in your heart" };
 
     case 'C':
-      return { "... ... ... ..." };
+      return { "Love is friend", "-ship on fire !" };
 
     case 'D':
-      return { "Tralala" };
+      return { "You call madness", "but it's love" };
 
     case '*':
-      return { "You're my star" };
+      return { "You're my star", "you're universe" };
     default:
-      return { "Unknown message" };
+      return { "I know !" };
   }
 }
 
