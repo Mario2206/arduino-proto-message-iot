@@ -41,66 +41,71 @@ byte colPins[cols] = { 11, 10, 9, 8 };    //connect to the column pinouts of the
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, rows, cols);
 
 // Domain
-String getTextMessage(char inputKey) {
+std::array<String, 2> getTextMessage(char inputKey) {
   switch (inputKey) {
     case '1':
-      return "I love you";
-    
+      return { "I love you" };
+
     case '2':
-      return "You are the most beautiful woman!";
-    
+      return { "You are the most", "beautiful woman!" };
+
     case '3':
-      return "You are the most handsome man!";
-    
+      return { "You are the most", "handsome man!" };
+
     case '4':
-      return "I don't have any idea...";
+      return { "I don't have any", "idea..." };
 
     case '5':
-      return "...";
+      return { "..." };
 
     case '6':
-      return "... ... ...";
-    
-    case '7':
-      return "1234567";
+      return { "... ... ..." };
 
-    case '8': 
-      return "I can't live without you!";
-    
+    case '7':
+      return { "1234567" };
+
+    case '8':
+      return { "I can't live", "without you!" };
+
     case '9':
-      return "I don't want to breath without you...";
+      return { "I want to breath", "with you..." };
 
     case 'A':
-      return "I'm your father";
-    
+      return { "I'm your father" };
+
     case 'B':
-      return "I'm Terminator";
-    
+      return { "I'm Terminator" };
+
     case 'C':
-      return "... ... ... ...";
-    
-    case 'D': 
-      return "Tralala";
-    
+      return { "... ... ... ..." };
+
+    case 'D':
+      return { "Tralala" };
+
     case '*':
-      return "You're my star";
+      return { "You're my star" };
     default:
-      return "Unknown message";
+      return { "Unknown message" };
   }
 }
 
 void sendMessage(char inputKey) {
 
-  String message = getTextMessage(inputKey);
+  std::array<String, 2> message = getTextMessage(inputKey);
+
   // display message
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(message);
+  for (int i = 0; i < message.size(); i++) {
+    lcd.setCursor(0, i);
+    lcd.print(message[i]);
+    Serial.println(message[i]);
+  }
 
   Serial.println("Send message");
-  Serial.println(message);
+
   // Send message
-  socketIO.send(sIOtype_EVENT, "[\"newMessage\", \"" + message + "\"]");
+  String payload = String(inputKey);
+  socketIO.send(sIOtype_EVENT, "[\"newMessage\", \"" + payload + "\"]");
 }
 
 void messageHandler(uint8_t* payload) {
@@ -117,11 +122,17 @@ void messageHandler(uint8_t* payload) {
   String value = doc[1];
 
   if (messageKey == "lastMessage") {
+    char inputKey = value.c_str()[0];
+    std::array<String, 2> message = getTextMessage(inputKey);
     Serial.println(messageKey);
-    Serial.println(value);
+
+    // display message
     lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print(value);
+    for (int i = 0; i < message.size(); i++) {
+      lcd.setCursor(0, i);
+      lcd.print(message[i]);
+      Serial.println(message[i]);
+    }
   }
 }
 
